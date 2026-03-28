@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="dark" data-dark-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Let us check your browser</title>
+  <link rel="icon" type="image/svg+xml" href="https://github.githubassets.com/favicons/favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+
+  <main class="main">
+    <div class="card">
+      <div class="shield-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      </div>
+
+      <h1 class="card-title">Are you human?</h1>
+      <p class="card-subtitle">
+        Complete the quick check below to continue.
+      </p>
+
+      <div class="divider"></div>
+
+      <div class="turnstile-wrapper">
+        <div id="turnstile-container"></div>
+      </div>
+
+      <button class="verify-btn" id="verifyBtn" onclick="handleVerify()">
+        Confirm Verification
+      </button>
+
+      <p class="status-message" id="statusMsg"></p>
+
+      <div class="info-box">
+        <p>
+          Powered by <a href="https://www.cloudflare.com/products/turnstile/" target="_blank" rel="noopener">Cloudflare Turnstile</a>. Your data is not collected or stored.
+</p>
+      </div>
+    </div>
+  </main>
+
+<script src="app.js"></script>
+</body>
+</html>
