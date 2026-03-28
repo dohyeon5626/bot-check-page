@@ -78,38 +78,6 @@ body {
   margin-bottom: 20px;
 }
 
-.verify-btn {
-  width: 100%;
-  padding: 5px 16px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #ffffff;
-  background-color: #238636;
-  border: 1px solid #2ea043;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
-  height: 32px;
-  display: none;
-}
-
-.verify-btn:hover {
-  background-color: #2ea043;
-  border-color: #3fb950;
-}
-
-.verify-btn:active {
-  background-color: #238636;
-}
-
-.verify-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.verify-btn.visible {
-  display: block;
-}
 
 .status-message {
   font-size: 13px;

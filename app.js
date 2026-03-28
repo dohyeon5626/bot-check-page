@@ -17,9 +17,18 @@ function renderTurnstile() {
 
 function onTurnstileSuccess(token) {
   turnstileToken = token;
-  document.getElementById('verifyBtn').classList.add('visible');
-  document.getElementById('statusMsg').textContent = '';
-  document.getElementById('statusMsg').className = 'status-message';
+
+  const msg = document.getElementById('statusMsg');
+  msg.className = 'status-message success';
+  msg.textContent = 'Verification successful. Redirecting...';
+
+  setTimeout(() => {
+    if (redirectUrl) {
+      window.location.href = redirectUrl;
+    } else {
+      msg.textContent = 'Verified. No redirect URL specified.';
+    }
+  }, 800);
 }
 
 function onTurnstileError() {
@@ -36,28 +45,6 @@ function onTurnstileExpired() {
   document.getElementById('statusMsg').textContent = 'Verification expired. Please complete the check again.';
 }
 
-function handleVerify() {
-  if (!turnstileToken) return;
-
-  const btn = document.getElementById('verifyBtn');
-  const msg = document.getElementById('statusMsg');
-
-  btn.disabled = true;
-  btn.textContent = 'Verifying...';
-
-  msg.className = 'status-message success';
-  msg.textContent = 'Verification successful. Redirecting you back...';
-
-  setTimeout(() => {
-    if (redirectUrl) {
-      window.location.href = redirectUrl;
-    } else {
-      btn.disabled = false;
-      btn.textContent = 'Confirm';
-      msg.textContent = 'Verified. No redirect URL specified.';
-    }
-  }, 800);
-}
 
 window.addEventListener('load', () => {
   if (typeof turnstile !== 'undefined') {
