@@ -37,19 +37,23 @@ body {
   text-align: center;
 }
 
-.shield-icon {
+.logo-icon {
   margin: 0 auto 20px;
-  width: 56px;
-  height: 56px;
-  background-color: #1f6feb22;
+  width: 72px;
+  height: 72px;
+  background-color: #ffffff;
   border-radius: 50%;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
 }
 
-.shield-icon svg {
-  color: #388bfd;
+.logo-icon img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
 }
 
 .card-title {
