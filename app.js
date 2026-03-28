@@ -2,6 +2,7 @@ const TURNSTILE_SITE_KEY = '__TURNSTILE_SITE_KEY__';
 
 const params = new URLSearchParams(window.location.search);
 const redirectUrl = params.get('redirect_url');
+const id = params.get('id');
 
 let turnstileToken = null;
 
@@ -15,32 +16,43 @@ function renderTurnstile() {
   });
 }
 
-function onTurnstileSuccess(token) {
-  turnstileToken = token;
-
+async function onTurnstileSuccess(token) {
   const msg = document.getElementById('statusMsg');
-  msg.className = 'status-message success';
-  msg.textContent = 'Verification successful. Redirecting...';
+  msg.className = 'status-message';
+  msg.textContent = 'Verifying...';
 
-  setTimeout(() => {
+  try {
+    const response = await fetch('https://api.dohyeon5626.com/bot-check/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, turnstileToken: token }),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    msg.className = 'status-message success';
+    msg.textContent = 'Verification successful. Redirecting...';
+
     if (redirectUrl) {
       window.location.href = redirectUrl;
     } else {
       msg.textContent = 'Verified. No redirect URL specified.';
     }
-  }, 800);
+  } catch (err) {
+    msg.className = 'status-message error';
+    msg.textContent = 'Verification failed. Please try again.';
+    turnstile.reset('#turnstile-container');
+  }
 }
 
 function onTurnstileError() {
-  turnstileToken = null;
-  document.getElementById('verifyBtn').classList.remove('visible');
   document.getElementById('statusMsg').className = 'status-message error';
   document.getElementById('statusMsg').textContent = 'Verification failed. Please try again.';
 }
 
 function onTurnstileExpired() {
-  turnstileToken = null;
-  document.getElementById('verifyBtn').classList.remove('visible');
   document.getElementById('statusMsg').className = 'status-message';
   document.getElementById('statusMsg').textContent = 'Verification expired. Please complete the check again.';
 }
