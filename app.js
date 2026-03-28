@@ -28,6 +28,28 @@ async function onTurnstileSuccess(token) {
       body: JSON.stringify({ id, turnstileToken: token }),
     });
 
+    if (response.status === 409) {
+      msg.className = 'status-message success';
+      let seconds = 5;
+      msg.textContent = `Already verified. Redirecting in ${seconds}s...`;
+      const timer = setInterval(() => {
+        seconds--;
+        msg.textContent = `Already verified. Redirecting in ${seconds}s...`;
+        if (seconds <= 0) {
+          clearInterval(timer);
+          if (redirectUrl) window.location.href = redirectUrl;
+        }
+      }, 1000);
+      return;
+    }
+
+    if (response.status === 401) {
+      msg.className = 'status-message error';
+      msg.textContent = 'Verification failed. Please try again.';
+      turnstile.reset('#turnstile-container');
+      return;
+    }
+
     if (!response.ok) {
       throw new Error(response.statusText);
     }
