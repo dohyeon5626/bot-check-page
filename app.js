@@ -81,6 +81,17 @@ function onTurnstileExpired() {
 
 
 window.addEventListener('load', () => {
+  if (!redirectUrl || !id) {
+    document.querySelector('.card').innerHTML = `
+      <div class="logo-icon">
+        <img src="logo.png" alt="Logo" />
+      </div>
+      <h1 class="card-title">Invalid Access</h1>
+      <p class="card-subtitle">Required parameters are missing.<br>Please use a valid link to access this page.</p>
+    `;
+    return;
+  }
+
   if (typeof turnstile !== 'undefined') {
     renderTurnstile();
   }
